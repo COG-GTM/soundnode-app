@@ -270,8 +270,9 @@
 <script src="public/js/common/utilsService.js"></script>
 <script src="public/js/common/roundFilter.js"></script>
 
-<!-- Webpack bundle -->
-<script src="dist/bundle.js"></script>
+<!-- Lit migration entry point - bundled by `vite build` from public/js/lit-entry.js -->
+<!-- Loads alongside the existing Angular scripts above (coexistence) -->
+<script type="module" src="dist/lit-bundle.js"></script>
 
 </body>
 
