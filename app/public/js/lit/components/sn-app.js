@@ -14,19 +14,18 @@ export class SnApp extends LitElement {
     return this;
   }
 
+  // Light DOM containers (named regions) instead of <slot> elements, since
+  // <slot> only projects content inside a shadow root and we render into the
+  // host (createRenderRoot returns this) so existing global CSS keeps working.
+  // Phase 4 components mount into these regions by id.
   render() {
     return html`
       <div id="app" class="ui_app ${this.state.get('isSongPlaying') ? 'songPlaying' : ''}">
-        <!-- Header slot - will contain sn-header -->
-        <slot name="header"></slot>
-        <!-- Sidebar slot - will contain sn-sidebar -->
-        <slot name="sidebar"></slot>
-        <!-- Player slot - will contain sn-player -->
-        <slot name="player"></slot>
-        <!-- Router outlet for views -->
+        <div id="sn-header-region"></div>
+        <div id="sn-sidebar-region"></div>
+        <div id="sn-player-region"></div>
         <div class="mainView" id="lit-router-outlet"></div>
-        <!-- Queue slot -->
-        <slot name="queue"></slot>
+        <div id="sn-queue-region"></div>
       </div>
     `;
   }
