@@ -25,6 +25,9 @@ class EventBus extends EventTarget {
   once(name, callback) {
     const handler = (e) => callback(e.detail);
     this.addEventListener(name, handler, { once: true });
+    // Return unsubscribe function (mirrors `on`); lets callers cancel a pending
+    // listener before it fires.
+    return () => this.removeEventListener(name, handler);
   }
 }
 

@@ -29,6 +29,14 @@ describe('EventBus', () => {
     expect(spy).toHaveBeenCalledWith('a');
   });
 
+  it('unsubscribe function returned by once cancels a pending listener', () => {
+    const spy = vi.fn();
+    const unsub = eventBus.once('test::once-unsub', spy);
+    unsub();
+    eventBus.emit('test::once-unsub', 'x');
+    expect(spy).not.toHaveBeenCalled();
+  });
+
   it('passes null detail when emit is called without payload', () => {
     const spy = vi.fn();
     eventBus.on('test::no-detail', spy);
